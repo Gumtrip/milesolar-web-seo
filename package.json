@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "serve": "npm run dev",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -13,7 +14,9 @@
     "upload:stage": "node build/upload.test.js"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "axios": "^0.19.2",
+    "core-js": "^3.6.5",
     "element-ui": "^2.13.1",
     "nuxt": "^2.0.0",
     "qs": "^6.9.3",
@@ -23,7 +26,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
+    "fibers": "^4.0.2",
     "node-sass": "^4.13.1",
+    "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "scp2": "^0.5.0"
   }

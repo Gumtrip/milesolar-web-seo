@@ -3,10 +3,10 @@
     <div>
       <section id="banner">
         <ul>
-          <el-carousel trigger="click">
+          <el-carousel trigger="click" :height="bannerHeight + 'px'" >
             <el-carousel-item v-for="(banner,key) in banners" :key="key">
               <nuxt-link :to="banner.url">
-                <img src="../static/banner.png" alt="">
+                <img src="../static/banner.png" alt="" ref="bannerHeight" @load="imgLoad">
               </nuxt-link>
             </el-carousel-item>
           </el-carousel>
@@ -99,6 +99,7 @@ export default {
       articles: [],
       aboutsUs: [],
       selected: 'tab-0', // 首页about us选项卡
+      bannerHeight: '500',
       banners: [
         { image: '../static/banner-1.jpg', url: '/' }
       ]
@@ -134,6 +135,13 @@ export default {
         sort: 'id'
       }).then((response) => {
         this.aboutsUs = response.data
+      })
+    },
+    imgLoad() {
+      this.$nextTick(() => {
+        if(typeof this.$refs.bannerHeight[0] !=='undefined'){
+          this.bannerHeight = this.$refs.bannerHeight[0].height
+        }
       })
     }
   }
