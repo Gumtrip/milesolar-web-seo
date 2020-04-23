@@ -10,6 +10,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
+    "generate:dev": "cross-env environment=development nuxt generate",
     "upload:prod": "node build/upload.js",
     "upload:stage": "node build/upload.test.js"
   },
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "fibers": "^4.0.2",

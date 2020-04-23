@@ -70,5 +70,8 @@ export default {
       }
     }
 
+  },
+  env: {
+    environment: process.env.environment
   }
 }
