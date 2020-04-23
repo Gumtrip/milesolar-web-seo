@@ -2,14 +2,14 @@
   <header id="header">
     <div class="wrapper">
       <div id="logo" class="flexPic">
-        <router-link to="/">
+        <nuxt-link to="/">
           <img src="~/static/logo.png" alt="">
-        </router-link>
+        </nuxt-link>
       </div>
       <nav id="nav">
         <ul>
           <li v-for="(nav,key) in navList" :key="key" class="list">
-            <router-link :to="nav.url" v-text="nav.title"></router-link>
+            <nuxt-link :to="nav.url" v-text="nav.title"></nuxt-link>
           </li>
         </ul>
       </nav>

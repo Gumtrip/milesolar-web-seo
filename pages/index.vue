@@ -3,10 +3,10 @@
     <div>
       <section id="banner">
         <ul>
-          <el-carousel trigger="click" :height="bannerHeight + 'px'" >
+          <el-carousel trigger="click" :height="bannerHeight + 'px'">
             <el-carousel-item v-for="(banner,key) in banners" :key="key">
               <nuxt-link :to="banner.url">
-                <img src="../static/banner.png" alt="" ref="bannerHeight" @load="imgLoad">
+                <img ref="bannerHeight" src="../static/banner.png" alt="" @load="imgLoad">
               </nuxt-link>
             </el-carousel-item>
           </el-carousel>
@@ -64,7 +64,7 @@
       <section id="indexNews">
         <ul class="wrapper">
           <li v-for="(article,key) in articles" :key="key" class="list">
-            <router-link :to="{name:'article.show',params:{id:article.id}}">
+            <router-link :to="{name:'articles-id',params:{id:article.id}}">
               <div class="txt">
                 <div class="newIcon">
                   <span>News</span>
@@ -87,11 +87,9 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import {productCategories,articles} from '~/plugins/http';
+import { productCategories, articles } from '~/plugins/http'
 export default {
   components: {
-    Logo
   },
   data() {
     return {
@@ -139,7 +137,7 @@ export default {
     },
     imgLoad() {
       this.$nextTick(() => {
-        if(typeof this.$refs.bannerHeight[0] !=='undefined'){
+        if (typeof this.$refs.bannerHeight[0] !== 'undefined') {
           this.bannerHeight = this.$refs.bannerHeight[0].height
         }
       })

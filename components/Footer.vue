@@ -2,18 +2,18 @@
   <footer id="footer">
     <ul class="wrapper">
       <li class="logo navList">
-        <router-link to="/">
+        <nuxt-link to="/">
           <img src="~/static/logo.png" alt="">
-        </router-link>
+        </nuxt-link>
       </li>
       <li class="navList product">
         <h3>PRODUCTS</h3>
         <ul v-if="product_categories">
           <li>
-            <h4><router-link to="/products">ALL PRODUCTS</router-link> </h4>
+            <h4><nuxt-link to="/products">ALL PRODUCTS</nuxt-link> </h4>
           </li>
           <li v-for="(category,key) in product_categories" :key="key">
-            <h4><router-link :to="{name:'products',query:{category_id:category.id}}" v-text="category.title"></router-link> </h4>
+            <h4><nuxt-link :to="{name:'products',query:{category_id:category.id}}" v-text="category.title"></nuxt-link> </h4>
           </li>
         </ul>
       </li>
@@ -21,7 +21,7 @@
         <h3>ABOUT US</h3>
         <ul>
           <li v-for="(article,key) in aboutsUs" :key="key">
-            <h4><router-link :to="{name:'article.show',params:{id:article.id}}" v-text="article.title"></router-link> </h4>
+            <h4><nuxt-link :to="{name:'articles-id',params:{id:article.id}}" v-text="article.title"></nuxt-link> </h4>
           </li>
 
         </ul>
@@ -30,7 +30,7 @@
         <h3>CONTACT US</h3>
         <ul>
           <li>
-            <h4><router-link to="/contact_us">CONTACT US</router-link> </h4>
+            <h4><nuxt-link to="/contact_us">CONTACT US</nuxt-link> </h4>
           </li>
         </ul>
       </li>

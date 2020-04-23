@@ -109,17 +109,9 @@ export const productCategory = (id, params) => {
   })
 }
 
-const refreshToken = async(data) => {
+export const storeMsg = (data) => {
   // 请求刷新接口
-  return await axios({
-    url: 'auth/refreshToken',
-    method: 'PUT',
-    data: data
-  })
-}
-const storeMsg = async(data) => {
-  // 请求刷新接口
-  return await axios({
+  return axios({
     url: 'messages',
     method: 'POST',
     data: data
