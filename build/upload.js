@@ -8,4 +8,4 @@ function uploadCallBack(err){
     }
 }
 client.scp(uploadConfig.STATIC_DEV_PATH,uploadConfig.STATIC_DEST,uploadCallBack);
-client.scp(uploadConfig.INDEX_DEV_PATH,uploadConfig.INDEX_DEST,uploadCallBack);
+client.scp(uploadConfig.NUXT_DEV_PATH,uploadConfig.NUXT_DEST,uploadCallBack);

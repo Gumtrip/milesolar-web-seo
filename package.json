@@ -7,10 +7,9 @@
   "scripts": {
     "dev": "nuxt",
     "serve": "npm run dev",
-    "build": "nuxt build",
+    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "generate:dev": "cross-env environment=development nuxt generate",
     "upload:prod": "node build/upload.js",
     "upload:stage": "node build/upload.test.js"
   },
