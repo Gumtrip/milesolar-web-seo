@@ -72,6 +72,6 @@ export default {
 
   },
   env: {
-    baseUrl: process.env.NODE_ENV === 'production' ? 'http://mile.com' : 'http://mile.com'
+    baseUrl: process.env.NODE_ENV === 'production' ? '/' : 'http://mile.com'
   }
 }

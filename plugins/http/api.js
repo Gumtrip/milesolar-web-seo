@@ -42,30 +42,6 @@ export default function $axios(options) {
     // request 拦截器
     instance.interceptors.request.use(
       async config => {
-        // Tip: 1
-        // 请求开始的时候可以结合 vuex 开启全屏的 loading 动画
-        // Tip: 2
-        // 带上 token , 可以结合 vuex 或者重 localStorage
-        // const data = config.data
-        // let token = {}
-        // 刷新接口不拦截，不然会死循环！！！
-        // if (typeof data !== 'undefined' && typeof data.intercept !== 'undefined' && data.intercept === false) {
-        //   token = data
-        // } else {
-        //   const refreshResponse = await api.getToken()
-        //   if (refreshResponse && typeof refreshResponse.status !== 'undefined' && refreshResponse.status === 200) {
-        //     // 将 Token 及过期时间保存在 storage 中
-        //     store.dispatch('setToken', refreshResponse.data)
-        //     token = refreshResponse.data
-        //   } else {
-        //     token = refreshResponse
-        //   }
-        // }
-
-        // if (token) {
-        //   config.headers.Authorization = token.token
-        // }
-
         // Tip: 3
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method.toLocaleLowerCase() === 'post' || config.method.toLocaleLowerCase() === 'put' || config.method.toLocaleLowerCase() === 'delete') {
