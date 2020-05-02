@@ -2,15 +2,13 @@
   <div class="container">
     <div>
       <section id="banner">
-        <ul>
-          <el-carousel trigger="click" :height="bannerHeight + 'px'">
-            <el-carousel-item v-for="(banner,key) in banners" :key="key">
-              <nuxt-link :to="banner.url">
-                <img ref="bannerHeight" src="../static/banner.png" alt="" @load="imgLoad">
-              </nuxt-link>
-            </el-carousel-item>
-          </el-carousel>
-        </ul>
+        <swiper ref="mySwiper">
+          <swiper-slide v-for="(banner,key) in banners" :key="key">
+            <router-link :to="banner.url" class="bannerImg">
+              <img src="../static/banner.png" alt="">
+            </router-link>
+          </swiper-slide>
+        </swiper>
       </section>
 
       <section id="indexCategories">
@@ -88,8 +86,11 @@
 
 <script>
 import { productCategories, articles } from '~/plugins/http'
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+
 export default {
-  components: {
+  components: { Swiper, SwiperSlide
   },
   data() {
     return {
@@ -135,20 +136,17 @@ export default {
         this.aboutsUs = response.data
       })
     },
-    imgLoad() {
-      this.$nextTick(() => {
-        if (typeof this.$refs.bannerHeight[0] !== 'undefined') {
-          this.bannerHeight = this.$refs.bannerHeight[0].height
-        }
-      })
-    }
   }
 }
 </script>
 
 <style scoped lang="scss">
   @import "~/assets/css/_variables.scss";
-  #banner a{display: block;text-align: center}
+  #banner {
+    a{display: block;text-align: center;}
+    .bannerImg{width: 100%}
+    .bannerImg img{max-width: 100%}
+  }
   #indexCategories{max-width: 1920px;margin:0 auto;
     ul{display: flex;}
     li{;flex: 0 0 25%;}

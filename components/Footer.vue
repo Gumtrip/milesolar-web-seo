@@ -30,7 +30,7 @@
         <h3>CONTACT US</h3>
         <ul>
           <li>
-            <h4><nuxt-link to="/contact_us">CONTACT US</nuxt-link> </h4>
+            <h4><nuxt-link :to="{name:'contact'}">CONTACT US</nuxt-link> </h4>
           </li>
         </ul>
       </li>
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-  import {productCategories,articles} from '~/plugins/http';
-  export default {
+import { productCategories, articles } from '~/plugins/http'
+export default {
   name: 'Footer',
   components: {},
   data() {
