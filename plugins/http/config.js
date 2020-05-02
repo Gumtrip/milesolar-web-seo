@@ -1,4 +1,4 @@
-const baseURL = process.env.baseUrl + 'api/v1/'
+const baseURL = process.env.baseUrl + '/api/v1/'
 export default {
   method: 'post',
   // 基础url前缀
