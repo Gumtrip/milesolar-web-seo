@@ -11,7 +11,7 @@
           <li v-for="(product,key) in products" :key="key" class="item">
             <nuxt-link :to="{name:'products-id',params:{id:product.id}}">
               <div class="flexPic pic">
-                <img :src="product.main_image" alt="">
+                <img :src="product.main_image" :alt="product.title">
               </div>
               <h5 class="title" v-text="product.title"></h5>
             </nuxt-link>

@@ -6,32 +6,29 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "build": "nuxt build",
     "serve": "npm run dev",
-    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "upload:prod": "node build/upload.js",
     "upload:stage": "node build/upload.test.js"
   },
   "dependencies": {
-    "@nuxtjs/dotenv": "^1.4.1",
     "axios": "^0.19.2",
-    "core-js": "^3.6.5",
     "element-ui": "^2.13.1",
     "nuxt": "^2.0.0",
-    "qs": "^6.9.3",
+    "qs": "^6.9.4",
     "swiper": "^5.3.8",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
-    "fibers": "^4.0.2",
-    "node-sass": "^4.13.1",
-    "sass": "^1.26.3",
+    "fibers": "^5.0.0",
+    "node-sass": "^4.14.0",
+    "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "scp2": "^0.5.0"
   }

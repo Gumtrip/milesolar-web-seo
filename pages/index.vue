@@ -5,7 +5,7 @@
         <swiper ref="mySwiper">
           <swiper-slide v-for="(banner,key) in banners" :key="key">
             <router-link :to="banner.url" class="bannerImg">
-              <img src="../static/banner.png" alt="">
+              <img src="../static/banner.png" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
             </router-link>
           </swiper-slide>
         </swiper>
@@ -16,7 +16,7 @@
           <li v-for="(category,key) in product_categories" :key="key">
             <router-link :to="{name:'products',query:{category_id:category.id}}" class="cateBox">
               <div class="cate_pic half flexPic">
-                <img :src="category.mid_img">
+                <img :src="category.mid_img" :alt="category.title">
               </div>
               <div class="cate_title half">
                 <h3 class="text_center" v-text="category.title"></h3>
@@ -45,7 +45,7 @@
           <div class="rightBox">
             <div v-if="aboutsUs[0]" id="imgBox">
               <div id="imgZoom" class="flexPic">
-                <img :src="aboutsUs[0].mid_img" alt="">
+                <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
               </div>
               <div class="top">
                 <span class="left block"></span>
@@ -72,7 +72,7 @@
               </div>
               <div class="newPic picBox">
                 <div class="pic">
-                  <img :src="article.sm_img">
+                  <img :src="article.sm_img" :alt="article.title">
                 </div>
                 <span></span>
               </div>
@@ -135,7 +135,7 @@ export default {
       }).then((response) => {
         this.aboutsUs = response.data
       })
-    },
+    }
   }
 }
 </script>

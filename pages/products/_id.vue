@@ -6,7 +6,7 @@
         <el-carousel trigger="click" :interval="5000" indicator-position="outside">
           <el-carousel-item v-for="(img,key) in product.mid_image_group" :key="key">
             <div class="flexPic">
-              <img :src="img">
+              <img :src="img" :alt="product.title">
             </div>
           </el-carousel-item>
         </el-carousel>

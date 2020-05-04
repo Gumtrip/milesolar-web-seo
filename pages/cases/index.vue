@@ -9,7 +9,7 @@
         <li v-for="(sample,key) in samples" :key="key" class="sample">
           <nuxt-link :to="{name:'cases-id',params:{id:sample.id}}">
             <div class="img flexPic">
-              <img :src="sample.sm_img" alt="">
+              <img :src="sample.sm_img" :alt="sample.title">
             </div>
             <div class="info">
               <h3 class="title" v-text="sample.title"></h3>

@@ -6,7 +6,7 @@
         <li v-for="(article,key) in articles" :key="key" class="article">
           <nuxt-link :to="{name:'articles-id',params:{id:article.id}}">
             <div class="img flexPic">
-              <img :src="article.sm_img" alt="">
+              <img :src="article.sm_img" :alt="article.title">
             </div>
             <div class="info">
               <h3 class="title" v-text="article.title"></h3>
