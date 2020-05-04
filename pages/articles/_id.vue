@@ -12,7 +12,7 @@
 
 <script>
 import Bread from '@/components/utils/BreadCrumb'
-import {article} from '~/plugins/http';
+import { article } from '~/plugins/http';
 
 export default {
   name: 'Show',

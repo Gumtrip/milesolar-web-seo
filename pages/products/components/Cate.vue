@@ -22,9 +22,9 @@
 </template>
 
 <script>
-  import {productCategoryTree} from '~/plugins/http';
+import { productCategoryTree } from '~/plugins/http'
 
-  export default {
+export default {
   name: 'Cate',
   components: {},
   data() {
