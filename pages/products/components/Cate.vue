@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
   @import "~/assets/css/_variables";
 
-  #proCate /deep/{
+  #proCate ::v-deep{
     .boxTitle{background: $main_green;color: #fff;height: 50px;line-height: 50px;font-size: 20px;text-indent: 10px}
     #allProducts{padding: 10px 0}
       .firstCate .el-collapse-item__header{

@@ -170,7 +170,7 @@ export default {
     .boxSubTitle{margin-bottom: 40px;font-size: 24px;color: #666;}
   }
   #productBox{display: flex;justify-content: space-between;
-    #contact_form /deep/{flex:0 0 80%;margin: 0 auto;
+    #contact_form ::v-deep{flex:0 0 80%;margin: 0 auto;
       .required .el-form-item__label:after{content: '*';color: $red}
     }
     &.half{

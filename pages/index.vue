@@ -183,7 +183,7 @@ export default {
     }
     #detailInfo{margin: 25px 0 0;height: 210px;}
     .mint-navbar .mint-tab-item.is-selected{border-bottom-color: $main_green}
-    .a_Title /deep/{ .mint-tab-item-label{font-size: 16px;color: #9b9b9b;}}
+    .a_Title ::v-deep{ .mint-tab-item-label{font-size: 16px;color: #9b9b9b;}}
     .txtBox{line-height: 170%;
       font-size: 16px;
       color: #9b9b9b;}

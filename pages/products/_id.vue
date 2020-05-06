@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "~/assets/css/_variables";
+  @import "@/assets/css/_variables";
   #productDetail{display: flex;margin-bottom: 40px;justify-content: space-between;
     #picGallery{flex: 0 0 40%;
       .flexPic{height: 100%}
@@ -95,7 +95,7 @@ export default {
     }
     #proInfo{flex: 0 0 55%}
   }
-  .contentContainer /deep/{
+  .contentContainer ::v-deep{
     .el-tabs__item{
       font-size: 20px;
     }
