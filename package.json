@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "core-js": "^3.6.5",
     "element-ui": "^2.13.1",
     "nuxt": "^2.0.0",
     "qs": "^6.9.4",
@@ -23,11 +24,12 @@
     "vue-awesome-swiper": "^4.1.1"
   },
   "devDependencies": {
+    "@babel/runtime-corejs3": "^7.9.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "fibers": "^5.0.0",
-    "node-sass": "^4.14.0",
+    "node-sass": "^4.14.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "scp2": "^0.5.0"
