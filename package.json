@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
     "serve": "npm run dev",
+    "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "upload:prod": "node build/upload.js",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.6",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "fibers": "^5.0.0",

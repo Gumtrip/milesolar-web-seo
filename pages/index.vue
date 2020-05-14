@@ -87,6 +87,8 @@
 <script>
 import { productCategories, articles } from '~/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { TITLE, DESCRIPTION } from '~/seo.config'
+
 import 'swiper/css/swiper.css'
 
 export default {
@@ -135,6 +137,19 @@ export default {
       }).then((response) => {
         this.aboutsUs = response.data
       })
+    }
+  },
+  head() {
+    return {
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'Product',
+          'name': TITLE,
+          'description': DESCRIPTION
+        }
+      }]
     }
   }
 }
