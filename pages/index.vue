@@ -87,7 +87,7 @@
 <script>
 import { productCategories, articles } from '~/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { TITLE, DESCRIPTION } from '~/seo.config'
+import { APP_URL } from '~/seo.config'
 
 import 'swiper/css/swiper.css'
 
@@ -145,16 +145,22 @@ export default {
         type: 'application/ld+json',
         json: {
           '@context': 'http://schema.org',
-          '@type': 'Product',
-          'name': TITLE,
-          'description': DESCRIPTION
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': '1',
+              'name': 'Index',
+              'item': APP_URL
+            }
+          ]
         }
-      }]
+      }
+      ]
     }
   }
 }
 </script>
-
 <style scoped lang="scss">
   @import "~/assets/css/_variables.scss";
   #banner {
