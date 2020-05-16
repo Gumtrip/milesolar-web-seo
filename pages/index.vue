@@ -87,7 +87,7 @@
 <script>
 import { productCategories, articles } from '~/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { APP_URL } from '~/seo.config'
+import { APP_URL, TITLE } from '~/seo.config'
 
 import 'swiper/css/swiper.css'
 
@@ -155,7 +155,19 @@ export default {
             }
           ]
         }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': TITLE,
+          'image': [
+            APP_URL + '/logo.png'
+          ]
+        }
       }
+
       ]
     }
   }
