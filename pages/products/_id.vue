@@ -105,6 +105,19 @@ export default {
             }
           ]
         }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': product.seo_title,
+          'image': [
+            product ? product.images : ''
+          ],
+          'datePublished': product.created_at,
+          'dateModified': product.updated_at
+        }
       }
       ]
 

@@ -74,6 +74,19 @@ export default {
             }
           ]
         }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': sample.seo_title,
+          'image': [
+            sample ? sample.mid_img : ''
+          ],
+          'datePublished': sample.created_at,
+          'dateModified': sample.updated_at
+        }
       }
       ]
 
