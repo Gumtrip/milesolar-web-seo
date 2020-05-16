@@ -11,12 +11,12 @@
             <a v-if="item.url" :href="item.url">
               <span class="icon"><i class="fa" :class="item.icon"></i></span>
               <span class="label" v-text="item.label+':'"></span>
-              <span class="info">info@milesolar.com</span>
+              <span class="info" v-text="item.value"></span>
             </a>
             <p v-else>
               <span class="icon"><i class="fa" :class="item.icon"></i></span>
               <span class="label" v-text="item.label+':'"></span>
-              <span class="info" v-text="item.value">info@milesolar.com</span>
+              <span class="info" v-text="item.value"></span>
             </p>
           </li>
         </ul>
