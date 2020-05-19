@@ -87,6 +87,8 @@
 <script>
 import { productCategories, articles } from '~/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { APP_URL, TITLE } from '~/seo.config'
+
 import 'swiper/css/swiper.css'
 
 export default {
@@ -136,10 +138,41 @@ export default {
         this.aboutsUs = response.data
       })
     }
+  },
+  head() {
+    return {
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': '1',
+              'name': 'Index',
+              'item': APP_URL
+            }
+          ]
+        }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': TITLE,
+          'image': [
+            APP_URL + '/logo.png'
+          ]
+        }
+      }
+
+      ]
+    }
   }
 }
 </script>
-
 <style scoped lang="scss">
   @import "~/assets/css/_variables.scss";
   #banner {
@@ -181,7 +214,7 @@ export default {
       font-size: 16px;
       color: #727272;
     }
-    #detailInfo{margin: 25px 0 0;height: 210px;}
+    #detailInfo{margin: 25px 0 0;}
     .mint-navbar .mint-tab-item.is-selected{border-bottom-color: $main_green}
     .a_Title ::v-deep{ .mint-tab-item-label{font-size: 16px;color: #9b9b9b;}}
     .txtBox{line-height: 170%;

@@ -29,6 +29,7 @@
 import Bread from '@/components/utils/BreadCrumb'
 import Cate from './components/Cate'
 import { products, productCategory } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'List',
@@ -99,7 +100,30 @@ export default {
         meta: [
           { hid: 'keywords', name: 'keywords', content: category.seo_keywords },
           { hid: 'description', name: 'description', content: category.seo_desc }
+        ],
+        script: [{
+          type: 'application/ld+json',
+          json: {
+            '@context': 'http://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': '1',
+                'name': 'Index',
+                'item': 'https://milesolar.com'
+              },
+              {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Products',
+                'item': APP_URL + '/products'
+              }
+            ]
+          }
+        }
         ]
+
       }
     }
   }

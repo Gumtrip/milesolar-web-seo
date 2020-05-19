@@ -11,12 +11,12 @@
             <a v-if="item.url" :href="item.url">
               <span class="icon"><i class="fa" :class="item.icon"></i></span>
               <span class="label" v-text="item.label+':'"></span>
-              <span class="info">info@milesolar.com</span>
+              <span class="info" v-text="item.value"></span>
             </a>
             <p v-else>
               <span class="icon"><i class="fa" :class="item.icon"></i></span>
               <span class="label" v-text="item.label+':'"></span>
-              <span class="info" v-text="item.value">info@milesolar.com</span>
+              <span class="info" v-text="item.value"></span>
             </p>
           </li>
         </ul>
@@ -76,6 +76,7 @@
 import { MessageBox } from 'element-ui'
 import Bread from '@/components/utils/BreadCrumb'
 import { product, storeMsg } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'Index',
@@ -158,7 +159,34 @@ export default {
       })
     }
 
+  },
+  head() {
+    return {
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Index',
+              'item': APP_URL
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Contact Us',
+              'item': APP_URL + '/contact'
+            }
+          ]
+        }
+      }
+      ]
+    }
   }
+
 }
 </script>
 

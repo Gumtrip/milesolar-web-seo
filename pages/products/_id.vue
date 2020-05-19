@@ -40,6 +40,7 @@
 <script>
 import Bread from '@/components/utils/BreadCrumb'
 import { product } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'Show',
@@ -77,7 +78,49 @@ export default {
       meta: [
         { hid: 'keywords', name: 'keywords', content: product.seo_keywords },
         { hid: 'description', name: 'description', content: product.seo_desc }
+      ],
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Index',
+              'item': APP_URL
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Products',
+              'item': APP_URL + '/products'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': 'Index',
+              'item': APP_URL + '/products/' + this.id
+            }
+          ]
+        }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': product.seo_title,
+          'image': [
+            product ? product.images : ''
+          ],
+          'datePublished': product.created_at,
+          'dateModified': product.updated_at
+        }
+      }
       ]
+
     }
   }
 }

@@ -12,6 +12,8 @@
 <script>
 import Bread from '@/components/utils/BreadCrumb'
 import { sample } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
+
 export default {
   name: 'Show',
   components: { Bread },
@@ -45,7 +47,49 @@ export default {
       meta: [
         { hid: 'keywords', name: 'keywords', content: sample.seo_keywords },
         { hid: 'description', name: 'description', content: sample.seo_desc }
+      ],
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Index',
+              'item': APP_URL
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Cases',
+              'item': APP_URL + '/cases'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'CaseDetail',
+              'item': APP_URL + '/cases/' + this.id
+            }
+          ]
+        }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': sample.seo_title,
+          'image': [
+            sample ? sample.mid_img : ''
+          ],
+          'datePublished': sample.created_at,
+          'dateModified': sample.updated_at
+        }
+      }
       ]
+
     }
   }
 }

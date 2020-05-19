@@ -12,7 +12,8 @@
 
 <script>
 import Bread from '@/components/utils/BreadCrumb'
-import { article } from '~/plugins/http';
+import { article } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'Show',
@@ -40,6 +41,7 @@ export default {
       })
     }
   },
+
   head() {
     const article = this.article
     return {
@@ -47,12 +49,53 @@ export default {
       meta: [
         { hid: 'keywords', name: 'keywords', content: article.seo_keywords },
         { hid: 'description', name: 'description', content: article.seo_desc }
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          json: {
+            '@context': 'http://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Index',
+                'item': APP_URL
+              },
+              {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Articles',
+                'item': APP_URL + '/articles'
+              },
+              {
+                '@type': 'ListItem',
+                'position': 3,
+                'name': 'ArticleDetail',
+                'item': APP_URL + '/articles/' + this.id
+              }
+            ]
+          }
+        },
+        {
+          type: 'application/ld+json',
+          json: {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            'headline': article.seo_title,
+            'image': [
+              article ? article.mid_img : ''
+            ],
+            'datePublished': article.created_at,
+            'dateModified': article.updated_at
+          }
+        }
       ]
     }
   }
 }
 </script>
-
 <style scoped lang="scss">
   #articleTitle{font-size: 20px;
     text-align: center;

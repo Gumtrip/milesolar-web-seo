@@ -29,6 +29,7 @@
 <script>
 import Bread from '@/components/utils/BreadCrumb'
 import { samples } from '~/plugins/http'
+import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'Index',
@@ -68,7 +69,28 @@ export default {
         }
       }
     }
+  },
+  head() {
+    return {
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': '1',
+              'name': 'Index',
+              'item': APP_URL
+            }
+          ]
+        }
+      }
+      ]
+    }
   }
+
 }
 </script>
 
