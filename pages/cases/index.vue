@@ -7,7 +7,7 @@
         v-loading="loading"
       >
         <li v-for="(sample,key) in samples" :key="key" class="sample">
-          <nuxt-link :to="{name:'cases-id',params:{id:sample.id}}">
+          <nuxt-link :to="{name:'cases-id-slug',params:{id:sample.id,slug:sample.slug}}">
             <div class="img flexPic">
               <img :src="sample.sm_img" :alt="sample.title">
             </div>

@@ -4,7 +4,7 @@
     <section v-if="articles.length>0" id="articleBox">
       <ul v-loading="loading">
         <li v-for="(article,key) in articles" :key="key" class="article">
-          <nuxt-link :to="{name:'articles-id',params:{id:article.id}}">
+          <nuxt-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}">
             <div class="img flexPic">
               <img :src="article.sm_img" :alt="article.title">
             </div>
