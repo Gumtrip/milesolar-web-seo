@@ -62,7 +62,7 @@
       <section id="indexNews">
         <ul class="wrapper">
           <li v-for="(article,key) in articles" :key="key" class="list">
-            <router-link :to="{name:'articles-id',params:{id:article.id}}">
+            <router-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}">
               <div class="txt">
                 <div class="newIcon">
                   <span>News</span>
