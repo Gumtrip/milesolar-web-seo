@@ -12,8 +12,8 @@
 
 <script>
 import Bread from '@/components/utils/BreadCrumb'
-import { article } from '~/plugins/http'
-import { APP_URL } from '~/seo.config'
+import { article } from '@/plugins/http'
+import { APP_URL } from '@/seo.config'
 
 export default {
   name: 'Show',

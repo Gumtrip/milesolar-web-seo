@@ -9,7 +9,7 @@
         <h3 id="rightBoxTitle">Products</h3>
         <ul id="contentBox" v-loading="loading">
           <li v-for="(product,key) in products" :key="key" class="item">
-            <nuxt-link :to="{name:'products-id',params:{id:product.id}}">
+            <nuxt-link :to="{name:'products-id-slug',params:{id:product.id,slug:product.slug}}">
               <div class="flexPic pic">
                 <img :src="product.main_image" :alt="product.title">
               </div>

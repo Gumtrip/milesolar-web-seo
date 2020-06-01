@@ -1,5 +1,0 @@
-Sitemap: https://milesolar.com/storage/sitemap.xml
-User-agent: *
-Disallow:
-Disallow: vendor
-Disallow: node_modules
