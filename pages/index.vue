@@ -85,14 +85,28 @@
 </template>
 
 <script>
-import { productCategories, articles } from '~/plugins/http'
+import { productCategories, articles } from '@/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
-
+import axios from 'axios'
 import 'swiper/css/swiper.css'
 
 export default {
   components: { Swiper, SwiperSlide
+  },
+  async asyncData(context) {
+    const res = await axios.get('https://milesolar.com/api/v1/product_categories', {
+      depth: 1,
+      take: 4,
+      sort: 'default'
+    })
+    return { product_categories: res.data }
+    // const res = await productCategories({
+    //   depth: 1,
+    //   take: 4,
+    //   sort: 'default'
+    // })
+    // console.log(res)
   },
   data() {
     return {
@@ -107,7 +121,7 @@ export default {
     }
   },
   created() {
-    this.getCategories()
+    // this.getCategories()
     this.getNews()
     this.getAboutUs()
   },
