@@ -94,19 +94,27 @@ import 'swiper/css/swiper.css'
 export default {
   components: { Swiper, SwiperSlide
   },
-  async asyncData(context) {
-    const res = await axios.get('https://milesolar.com/api/v1/product_categories', {
-      depth: 1,
+  async asyncData() {
+    // 产品分类
+    const res = await productCategories({
       take: 4,
       sort: 'default'
     })
-    return { product_categories: res.data }
-    // const res = await productCategories({
-    //   depth: 1,
-    //   take: 4,
-    //   sort: 'default'
-    // })
-    // console.log(res)
+    // 首页文章
+    const res1 = await articles({
+      filter: { is_index: 1 },
+      take: 3
+    })
+    // 关于我们
+    const res2 = await articles({
+      category_id: 2,
+      take: 3,
+      sort: 'id'
+    })
+    return { product_categories: res.data,
+      articles: res1.data,
+      aboutsUs: res2.data
+    }
   },
   data() {
     return {
@@ -122,13 +130,12 @@ export default {
   },
   created() {
     // this.getCategories()
-    this.getNews()
-    this.getAboutUs()
+    // this.getNews()
+    // this.getAboutUs()
   },
   methods: {
     getCategories() {
       productCategories({
-        depth: 1,
         take: 4,
         sort: 'default'
       }).then((response) => {

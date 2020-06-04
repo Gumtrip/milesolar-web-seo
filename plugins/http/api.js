@@ -49,6 +49,7 @@ export default function $axios(options) {
         }
         if (config.method.toLocaleLowerCase() === 'get') {
           config.paramsSerializer = function(params) {
+            // 解决get 方法无法传递数组的问题
             return qs.stringify(params, { arrayFormat: 'repeat' })
           }
         }

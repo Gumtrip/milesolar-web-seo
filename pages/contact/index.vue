@@ -73,14 +73,16 @@
 </template>
 
 <script>
-import { MessageBox } from 'element-ui'
+import { MessageBox ,Message } from 'element-ui'
 import Bread from '@/components/utils/BreadCrumb'
 import { product, storeMsg } from '~/plugins/http'
+import { echoErrorMsg  } from '@/plugins/utils'
 import { APP_URL } from '~/seo.config'
 
 export default {
   name: 'Index',
   components: { Bread },
+
   data() {
     return {
       contactList: [
@@ -145,6 +147,8 @@ export default {
             }
           } catch (e) {
             console.log(e)
+            const Msg = echoErrorMsg(e)
+            Message.error(`Error: ${Msg}`)
           }
         } else {
           console.log('error submit!!')

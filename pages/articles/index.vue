@@ -32,6 +32,9 @@ import { APP_URL } from '~/seo.config'
 export default {
   name: 'Index',
   components: { Bread },
+  async asyncData(){
+
+  },
   data() {
     return {
       articles: [],
