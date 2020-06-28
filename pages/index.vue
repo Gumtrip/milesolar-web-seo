@@ -13,83 +13,73 @@
       <section id="indexCategories">
         <el-row :gutter="20">
           <el-col v-for="(category,key) in product_categories" :key="key" :span="6" >
-            <router-link :to="{name:'products',query:{category_id:category.id}}" class="cateBox">
-              <h3 class="text_center cate_title" v-text="category.title"></h3>
-              <div class="cate_pic flexPic">
-                <img :src="category.mid_img" :alt="category.title">
-              </div>
-            </router-link>
-            <p class="cateBrief" v-text="category.brief"></p>
-
+            <el-card>
+              <router-link :to="{name:'products',query:{category_id:category.id}}" class="cateBox">
+                <h3 class="text_center cate_title" v-text="category.title"></h3>
+                <div class="cate_pic flexPic">
+                  <img :src="category.mid_img" :alt="category.title">
+                </div>
+              </router-link>
+              <p class="cateBrief" v-text="category.brief"></p>
+            </el-card>
           </el-col>
         </el-row>
       </section>
 
-      <section id="featureProducts">
+      <section v-if="indexProducts" type="flex" id="featureProducts">
         <h3 class="text_center title">FEATURED PRODUCTS</h3>
-        <el-row>
+        <el-row id="featureContainer" :gutter="20">
           <el-col v-for="(product,key) in indexProducts" :key="key" :span="6">
-            <nuxt-link :to="{name:'products-id-slug',params:{id:product.id,slug:product.slug}}">
-              <div class="flexPic">
-                <img :src="product.main_image" alt="">
-              </div>
-            </nuxt-link>
+            <div class="border-round itemBox">
+              <nuxt-link :to="{name:'products-id-slug',params:{id:product.id,slug:product.slug}}">
+                <div class="flexPic">
+                  <img :src="product.main_image" alt="">
+                </div>
+              </nuxt-link>
+            </div>
           </el-col>
         </el-row>
       </section>
+
       <section v-if="aboutsUs" id="aboutUs">
-        <div class="leftBox">
-          <h4 id="subTitle">A FEW WORDS ABOUT US</h4>
-          <h3 id="mainTitle">A FEW WORDS ABOUT US</h3>
-          <div>
-            <el-tabs id="detailInfo" v-model="selected">
-              <el-tab-pane v-for="(item,key) in aboutsUs" :key="key" :label="item.title" :name="'tab-'+key">
-                <p class="txtBox" v-text="item.intro"></p>
-              </el-tab-pane>
-            </el-tabs>
-          </div>
-        </div>
-        <div class="rightBox">
-          <div v-if="aboutsUs[0]" id="imgBox">
-            <div id="imgZoom" class="flexPic">
-              <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
-            </div>
-            <div class="top">
-              <span class="left block"></span>
-              <span class="right block"></span>
-            </div>
-            <div class="bottom">
-              <span class="left block"></span>
-              <span class="right block"></span>
+          <div class="rightBox">
+            <div v-if="aboutsUs[0]" id="imgBox">
+              <div id="imgZoom" class="flexPic">
+                <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="leftBox">
+            <h3 id="mainTitle">About MILESOLAR</h3>
+            <div class="txtBox" v-text="aboutsUs[0].intro"></div>
+            <el-row id="btnGroup">
+              <el-col :span="8"><a href=""><el-button type="primary">LinkedIn</el-button></a></el-col>
+              <el-col :span="8"><a href=""><el-button type="primary">FaceBook</el-button></a></el-col>
+              <el-col :span="8"><a href=""><el-button type="primary">WhatApp</el-button></a></el-col>
+            </el-row>
+          </div>
       </section>
-      <section id="indexNews">
-        <li v-for="(article,key) in articles" :key="key" class="list">
-          <router-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}">
-            <div class="txt">
-              <div class="newIcon">
-                <span>News</span>
-              </div>
-              <h3 class="newTitle" v-text="article.title"></h3>
-              <div class="newDate" v-text="article.create_date"></div>
-            </div>
-            <div class="newPic picBox">
-              <div class="pic">
-                <img :src="article.sm_img" :alt="article.title">
-              </div>
-              <span></span>
-            </div>
-          </router-link>
-        </li>
+      <section v-if="samples" id="indexCase">
+        <h3 class="text_center title">Customer Cases</h3>
+        <el-row :gutter="20">
+          <el-col v-for="(sample,key) in samples" :key="key" :span="8">
+            <el-card class="item">
+              <nuxt-link :to="{name:'cases-id-slug',params:{id:sample.id,slug:sample.slug}}">
+                <div class="flexPic">
+                  <img :src="sample.mid_img" alt="">
+                </div>
+              </nuxt-link>
+            </el-card>
+          </el-col>
+        </el-row>
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import { productCategories, articles, products } from '@/plugins/http'
+import { productCategories, samples, articles, products } from '@/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
 import 'swiper/css/swiper.css'
@@ -103,31 +93,35 @@ export default {
       take: 4,
       sort: 'default'
     })
-    // 首页文章
-    const res1 = await articles({
+    // 首页案例
+    const res1 = await samples({
       filter: { is_index: 1 },
       take: 3
     })
+    console.log(res1.data)
     // 关于我们
     const res2 = await articles({
       category_id: 2,
       take: 3,
       sort: 'id'
     })
+    // feature products
     const res3 = await products({
-      filter: { is_index: 1 }
+      filter:{is_index:1},
+      take:8
     })
-    console.log(res3.data.data)
+
     return { product_categories: res.data,
-      articles: res1.data,
-      aboutsUs: res2.data,
-      indexProducts: res3.data.data
+      samples: res1.data,// 首页案例
+      aboutsUs: res2.data,// 关于我们
+      indexProducts: res3.data// feature products
     }
   },
   data() {
     return {
       product_categories: [],
-      articles: [],
+      indexProducts: [],
+      samples: [],
       aboutsUs: [],
       selected: 'tab-0', // 首页about us选项卡
       bannerHeight: '500',
@@ -207,8 +201,8 @@ export default {
     .bannerImg{width: 100%}
     .bannerImg img{max-width: 100%}
   }
-  #indexCategories{max-width: 1920px;margin:10px auto 0 auto;
-    .cateBox{;box-sizing: border-box;height: 330px; }
+  #indexCategories{max-width: 1920px;margin:20px auto 16px auto;
+    .cateBox{;box-sizing: border-box;height: 330px;}
     .cate_title{ box-sizing: border-box;white-space: nowrap;text-overflow:ellipsis;overflow:hidden;
       h3{font-size: 30px;color: #9d9d9d;margin-bottom: 20%;height: 100px;overflow: hidden}
     }
@@ -217,24 +211,15 @@ export default {
   }
 
   #featureProducts{
-    .title{font-size: 28px}
+    .title{font-size: 32px;margin-bottom: 10px}
+    .itemBox{padding: 1rem;;height: 300px;overflow: hidden;margin-bottom: 20px}
+    .flexPic{height: 300px}
   }
-  #aboutUs{padding: 65px 2% 0 2%;box-sizing: border-box;
-    .wrapper{display: flex;justify-content: space-between}
-    .leftBox{flex: 0 0 42%}
-    .rightBox{flex: 0 0 54%}
-    #imgBox{padding: 0 10px;position: relative;
-      .block{position: absolute;
-        width: 84px;
-        height: 84px;
-        background: $main_green;
-        content: "";}
-      .top .block{top: -10px;}
-      .bottom .block{bottom: -10px;}
-      .left{left: 0}
-      .right{right: 0}
-      #imgZoom{position: relative;z-index: 2}
-    }
+  #aboutUs{box-sizing: border-box;display: flex;justify-content: space-between;margin-bottom: 20px;
+    .rightBox{flex: 0 0 42%}
+    .leftBox{flex: 0 0 54%}
+    .txtBox{margin-bottom: 10px}
+    #imgBox{padding: 0 10px;}
 
     #mainTitle{font-size: 36px;margin-bottom: 30px;color: #151515;}
     #subTitle{margin: 15px 0;
@@ -249,16 +234,9 @@ export default {
       color: #9b9b9b;}
   }
 
-  #indexNews{    padding: 75px 0;
-    .wrapper{display: flex;justify-content: space-between}
-    .list{;box-sizing: border-box;flex:0 0 30%;height: 420px;overflow: hidden}
-    a{display: block;box-shadow: 0 0 10px #e9e9e9;}
-    .newIcon span{background:$main_green;font-size: 14px;color: #fff;padding: 5px 10px;display: inline-block;margin-bottom: 5px;}
-    .txt{box-sizing: border-box; padding: 25px 6.5% 0}
-    .newPic .pic{height: 300px}
-    .newTitle{height: 48px;font-family: "Open Sans Bold";overflow: hidden;
-      font-size: 20px;
-      color: #262a31;}
-    .newDate{padding-top: 7px;font-size: 14px;color: #555;margin-bottom: 20px}
+  #indexCase{margin-bottom: 30px;
+    .title{font-size: 32px;margin-bottom: 20px}
+    .item{}
+    .flexPic{height: 300px;overflow: hidden}
   }
 </style>

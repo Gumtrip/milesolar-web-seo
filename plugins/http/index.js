@@ -86,18 +86,18 @@ export const userPasswordReset = data => {
   })
 }
 
-export const products = (params) => {
+export const products = (data) => {
   return instance({
     url: 'products',
-    method: 'post',
-    params: params
+    method: 'get',
+    data: data
   })
 }
-export const product = (id, params) => {
+export const product = (id, data) => {
   return instance({
     url: 'products/' + id,
-    method: 'post',
-    params: params
+    method: 'get',
+    data: data
   })
 }
 
