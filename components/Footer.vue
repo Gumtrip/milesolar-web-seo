@@ -21,7 +21,7 @@
         <h3>ABOUT US</h3>
         <ul>
           <li v-for="(article,key) in aboutsUs" :key="key">
-            <h4><nuxt-link :to="{name:'articles-id',params:{id:article.id}}" v-text="article.title"></nuxt-link> </h4>
+            <h4><nuxt-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}" v-text="article.title"></nuxt-link> </h4>
           </li>
 
         </ul>

@@ -23,7 +23,7 @@
 <script>
 import { articles } from '@/plugins/http'
 export default {
-  name: 'IndexNews',
+  name: 'news',
   components: {},
   async asyncData() {
     // 首页文章

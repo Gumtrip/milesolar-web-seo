@@ -12,7 +12,7 @@
     <div class="wrapper">
       <section id="indexCategories">
         <el-row :gutter="20">
-          <el-col v-for="(category,key) in product_categories" :key="key" :span="6" >
+          <el-col v-for="(category,key) in product_categories" :key="key" :span="6">
             <el-card>
               <router-link :to="{name:'products',query:{category_id:category.id}}" class="cateBox">
                 <h3 class="text_center cate_title" v-text="category.title"></h3>
@@ -26,7 +26,7 @@
         </el-row>
       </section>
 
-      <section v-if="indexProducts" type="flex" id="featureProducts">
+      <section v-if="indexProducts" id="featureProducts" type="flex">
         <h3 class="text_center title">FEATURED PRODUCTS</h3>
         <el-row id="featureContainer" :gutter="20">
           <el-col v-for="(product,key) in indexProducts" :key="key" :span="6">
@@ -42,50 +42,39 @@
       </section>
 
       <section v-if="aboutsUs" id="aboutUs">
-          <div class="rightBox">
-            <div v-if="aboutsUs[0]" id="imgBox">
-              <div id="imgZoom" class="flexPic">
-                <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
-              </div>
+        <div class="rightBox">
+          <div v-if="aboutsUs[0]" id="imgBox">
+            <div id="imgZoom" class="flexPic">
+              <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
             </div>
           </div>
+        </div>
 
-          <div class="leftBox">
-            <h3 id="mainTitle">About MILESOLAR</h3>
-            <div class="txtBox" v-text="aboutsUs[0].intro"></div>
-            <el-row id="btnGroup">
-              <el-col :span="8"><a href=""><el-button type="primary">LinkedIn</el-button></a></el-col>
-              <el-col :span="8"><a href=""><el-button type="primary">FaceBook</el-button></a></el-col>
-              <el-col :span="8"><a href=""><el-button type="primary">WhatApp</el-button></a></el-col>
-            </el-row>
-          </div>
+        <div class="leftBox">
+          <h3 id="mainTitle">About MILESOLAR</h3>
+          <div class="txtBox" v-text="aboutsUs[0].intro"></div>
+          <el-row id="btnGroup">
+            <el-col :span="8"><a href=""><el-button type="primary">LinkedIn</el-button></a></el-col>
+            <el-col :span="8"><a href=""><el-button type="primary">FaceBook</el-button></a></el-col>
+            <el-col :span="8"><a href=""><el-button type="primary">WhatApp</el-button></a></el-col>
+          </el-row>
+        </div>
       </section>
-      <section v-if="samples" id="indexCase">
-        <h3 class="text_center title">Customer Cases</h3>
-        <el-row :gutter="20">
-          <el-col v-for="(sample,key) in samples" :key="key" :span="8">
-            <el-card class="item">
-              <nuxt-link :to="{name:'cases-id-slug',params:{id:sample.id,slug:sample.slug}}">
-                <div class="flexPic">
-                  <img :src="sample.mid_img" alt="">
-                </div>
-              </nuxt-link>
-            </el-card>
-          </el-col>
-        </el-row>
+
+      <section id="indexCasesContainer">
+        <Cases></Cases>
       </section>
     </div>
   </div>
 </template>
-
 <script>
-import { productCategories, samples, articles, products } from '@/plugins/http'
+import { productCategories, articles, products } from '@/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
 import 'swiper/css/swiper.css'
-
+import Cases from '@/components/index/cases'
 export default {
-  components: { Swiper, SwiperSlide
+  components: { Swiper, SwiperSlide, Cases
   },
   async asyncData() {
     // 产品分类
@@ -93,12 +82,6 @@ export default {
       take: 4,
       sort: 'default'
     })
-    // 首页案例
-    const res1 = await samples({
-      filter: { is_index: 1 },
-      take: 3
-    })
-    console.log(res1.data)
     // 关于我们
     const res2 = await articles({
       category_id: 2,
@@ -107,13 +90,12 @@ export default {
     })
     // feature products
     const res3 = await products({
-      filter:{is_index:1},
-      take:8
+      filter: { is_index: 1 },
+      take: 8
     })
 
     return { product_categories: res.data,
-      samples: res1.data,// 首页案例
-      aboutsUs: res2.data,// 关于我们
+      aboutsUs: res2.data, // 关于我们
       indexProducts: res3.data// feature products
     }
   },
@@ -121,9 +103,7 @@ export default {
     return {
       product_categories: [],
       indexProducts: [],
-      samples: [],
       aboutsUs: [],
-      selected: 'tab-0', // 首页about us选项卡
       bannerHeight: '500',
       banners: [
         { image: '../static/banner-1.jpg', url: '/' }
@@ -142,14 +122,7 @@ export default {
         this.product_categories = response.data
       })
     },
-    getNews() {
-      articles({
-        filter: { is_index: 1 },
-        take: 3
-      }).then((response) => {
-        this.articles = response.data
-      })
-    },
+
     getAboutUs() {
       articles({
         category_id: 2,
@@ -194,7 +167,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @import "@/assets/css/_variables.scss";
   #banner {
     a{display: block;text-align: center;}
@@ -234,9 +207,5 @@ export default {
       color: #9b9b9b;}
   }
 
-  #indexCase{margin-bottom: 30px;
-    .title{font-size: 32px;margin-bottom: 20px}
-    .item{}
-    .flexPic{height: 300px;overflow: hidden}
-  }
+  #indexCasesContainer{margin-bottom: 30px}
 </style>
