@@ -32,7 +32,8 @@ export default {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     '@/assets/css/normalize.css',
-    '@/assets/css/custom.scss'
+    '@/assets/css/custom.scss',
+    '@/assets/font-awesome-4.7.0/css/font-awesome.min.css'
   ],
   /*
   ** Plugins to load before mounting the App

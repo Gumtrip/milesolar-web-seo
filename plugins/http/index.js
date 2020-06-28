@@ -2,6 +2,8 @@
 // import axios from './api'
 import axios from 'axios'
 import config from '@/plugins/http/config'
+import qs from 'qs' // 序列化请求数据，视服务端的要求
+
 /* 将所有接口统一起来便于维护
  * 如果项目很大可以将 url 独立成文件，接口分成不同的模块
  *
@@ -12,7 +14,10 @@ const instance = axios.create({
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json;charset=UTF-8'
   },
-  responseType: 'json'
+  responseType: 'json',
+  paramsSerializer: function(params) {
+    return qs.stringify(params, { arrayFormat: 'brackets' })
+  }
 }
 )
 // 单独倒出
@@ -84,14 +89,14 @@ export const userPasswordReset = data => {
 export const products = (params) => {
   return instance({
     url: 'products',
-    method: 'get',
+    method: 'post',
     params: params
   })
 }
 export const product = (id, params) => {
   return instance({
     url: 'products/' + id,
-    method: 'get',
+    method: 'post',
     params: params
   })
 }

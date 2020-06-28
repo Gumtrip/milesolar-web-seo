@@ -1,94 +1,97 @@
 <template>
   <div class="container">
-    <div>
-      <section id="banner">
-        <swiper ref="mySwiper">
-          <swiper-slide v-for="(banner,key) in banners" :key="key">
-            <router-link :to="banner.url" class="bannerImg">
-              <img src="../static/banner.png" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
-            </router-link>
-          </swiper-slide>
-        </swiper>
-      </section>
-
+    <section id="banner">
+      <swiper ref="mySwiper">
+        <swiper-slide v-for="(banner,key) in banners" :key="key">
+          <router-link :to="banner.url" class="bannerImg">
+            <img src="../static/banner.png" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
+          </router-link>
+        </swiper-slide>
+      </swiper>
+    </section>
+    <div class="wrapper">
       <section id="indexCategories">
-        <ul>
-          <li v-for="(category,key) in product_categories" :key="key">
+        <el-row :gutter="20">
+          <el-col v-for="(category,key) in product_categories" :key="key" :span="6" >
             <router-link :to="{name:'products',query:{category_id:category.id}}" class="cateBox">
-              <div class="cate_pic half flexPic">
+              <h3 class="text_center cate_title" v-text="category.title"></h3>
+              <div class="cate_pic flexPic">
                 <img :src="category.mid_img" :alt="category.title">
               </div>
-              <div class="cate_title half">
-                <h3 class="text_center" v-text="category.title"></h3>
-                <div class="link_icon">
-                  <i class="fa fa-arrow-circle-right"></i>
-                </div>
-              </div>
             </router-link>
-          </li>
-        </ul>
+            <p class="cateBrief" v-text="category.brief"></p>
+
+          </el-col>
+        </el-row>
       </section>
 
+      <section id="featureProducts">
+        <h3 class="text_center title">FEATURED PRODUCTS</h3>
+        <el-row>
+          <el-col v-for="(product,key) in indexProducts" :key="key" :span="6">
+            <nuxt-link :to="{name:'products-id-slug',params:{id:product.id,slug:product.slug}}">
+              <div class="flexPic">
+                <img :src="product.main_image" alt="">
+              </div>
+            </nuxt-link>
+          </el-col>
+        </el-row>
+      </section>
       <section v-if="aboutsUs" id="aboutUs">
-        <div class="wrapper">
-          <div class="leftBox">
-            <h4 id="subTitle">A FEW WORDS ABOUT US</h4>
-            <h3 id="mainTitle">A FEW WORDS ABOUT US</h3>
-            <div>
-              <el-tabs id="detailInfo" v-model="selected">
-                <el-tab-pane v-for="(item,key) in aboutsUs" :key="key" :label="item.title" :name="'tab-'+key">
-                  <p class="txtBox" v-text="item.intro"></p>
-                </el-tab-pane>
-              </el-tabs>
-            </div>
+        <div class="leftBox">
+          <h4 id="subTitle">A FEW WORDS ABOUT US</h4>
+          <h3 id="mainTitle">A FEW WORDS ABOUT US</h3>
+          <div>
+            <el-tabs id="detailInfo" v-model="selected">
+              <el-tab-pane v-for="(item,key) in aboutsUs" :key="key" :label="item.title" :name="'tab-'+key">
+                <p class="txtBox" v-text="item.intro"></p>
+              </el-tab-pane>
+            </el-tabs>
           </div>
-          <div class="rightBox">
-            <div v-if="aboutsUs[0]" id="imgBox">
-              <div id="imgZoom" class="flexPic">
-                <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
-              </div>
-              <div class="top">
-                <span class="left block"></span>
-                <span class="right block"></span>
-              </div>
-              <div class="bottom">
-                <span class="left block"></span>
-                <span class="right block"></span>
-              </div>
+        </div>
+        <div class="rightBox">
+          <div v-if="aboutsUs[0]" id="imgBox">
+            <div id="imgZoom" class="flexPic">
+              <img :src="aboutsUs[0].mid_img" :alt="aboutsUs[0].title">
+            </div>
+            <div class="top">
+              <span class="left block"></span>
+              <span class="right block"></span>
+            </div>
+            <div class="bottom">
+              <span class="left block"></span>
+              <span class="right block"></span>
             </div>
           </div>
         </div>
       </section>
       <section id="indexNews">
-        <ul class="wrapper">
-          <li v-for="(article,key) in articles" :key="key" class="list">
-            <router-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}">
-              <div class="txt">
-                <div class="newIcon">
-                  <span>News</span>
-                </div>
-                <h3 class="newTitle" v-text="article.title"></h3>
-                <div class="newDate" v-text="article.create_date"></div>
+        <li v-for="(article,key) in articles" :key="key" class="list">
+          <router-link :to="{name:'articles-id-slug',params:{id:article.id,slug:article.slug}}">
+            <div class="txt">
+              <div class="newIcon">
+                <span>News</span>
               </div>
-              <div class="newPic picBox">
-                <div class="pic">
-                  <img :src="article.sm_img" :alt="article.title">
-                </div>
-                <span></span>
+              <h3 class="newTitle" v-text="article.title"></h3>
+              <div class="newDate" v-text="article.create_date"></div>
+            </div>
+            <div class="newPic picBox">
+              <div class="pic">
+                <img :src="article.sm_img" :alt="article.title">
               </div>
-            </router-link>
-          </li>
-        </ul>
+              <span></span>
+            </div>
+          </router-link>
+        </li>
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import { productCategories, articles } from '@/plugins/http'
+import { productCategories, articles, products } from '@/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
-import axios from 'axios'
 import 'swiper/css/swiper.css'
 
 export default {
@@ -111,9 +114,14 @@ export default {
       take: 3,
       sort: 'id'
     })
+    const res3 = await products({
+      filter: { is_index: 1 }
+    })
+    console.log(res3.data.data)
     return { product_categories: res.data,
       articles: res1.data,
-      aboutsUs: res2.data
+      aboutsUs: res2.data,
+      indexProducts: res3.data.data
     }
   },
   data() {
@@ -128,10 +136,8 @@ export default {
       ]
     }
   },
-  created() {
-    // this.getCategories()
-    // this.getNews()
-    // this.getAboutUs()
+  async created() {
+
   },
   methods: {
     getCategories() {
@@ -195,24 +201,24 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  @import "~/assets/css/_variables.scss";
+  @import "@/assets/css/_variables.scss";
   #banner {
     a{display: block;text-align: center;}
     .bannerImg{width: 100%}
     .bannerImg img{max-width: 100%}
   }
-  #indexCategories{max-width: 1920px;margin:0 auto;
-    ul{display: flex;}
-    li{;flex: 0 0 25%;}
-    .cateBox{display: flex;justify-content: space-between;box-sizing: border-box;height: 330px; padding: 10% 0;background-image: linear-gradient(to right, #e1e0e0 , #fffeff)}
-    .half{flex:0 0 50%}
-    .cate_title{ box-sizing: border-box;; padding:0 3%;
+  #indexCategories{max-width: 1920px;margin:10px auto 0 auto;
+    .cateBox{;box-sizing: border-box;height: 330px; }
+    .cate_title{ box-sizing: border-box;white-space: nowrap;text-overflow:ellipsis;overflow:hidden;
       h3{font-size: 30px;color: #9d9d9d;margin-bottom: 20%;height: 100px;overflow: hidden}
-      .link_icon{}
-      .link_icon i{color: $main_green;font-size: 44px}
     }
+    .cate_pic{height: 260px;margin-bottom: 10px}
+    .cateBrief{font-size: 16px;height: 74px;overflow: hidden}
   }
 
+  #featureProducts{
+    .title{font-size: 28px}
+  }
   #aboutUs{padding: 65px 2% 0 2%;box-sizing: border-box;
     .wrapper{display: flex;justify-content: space-between}
     .leftBox{flex: 0 0 42%}
