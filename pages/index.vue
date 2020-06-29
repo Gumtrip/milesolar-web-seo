@@ -64,6 +64,18 @@
       <section id="indexCasesContainer">
         <Cases></Cases>
       </section>
+      <section id="contactUsInfo" class="mt30">
+        <el-card>
+          <el-row :gutter="20">
+            <el-col :span="12"><contactForm :simple="true"></contactForm></el-col>
+            <el-col :span="12">
+              <contactInfo></contactInfo>
+            </el-col>
+          </el-row>
+        </el-card>
+
+
+      </section>
     </div>
   </div>
 </template>
@@ -73,8 +85,11 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
 import 'swiper/css/swiper.css'
 import Cases from '@/components/index/cases'
+import contactForm from './contact/contactForm'
+import contactInfo from './contact/contactInfo'
+
 export default {
-  components: { Swiper, SwiperSlide, Cases
+  components: { Swiper, SwiperSlide, Cases, contactForm, contactInfo
   },
   async asyncData() {
     // 产品分类
@@ -206,6 +221,15 @@ export default {
       font-size: 16px;
       color: #9b9b9b;}
   }
-
+  .mt30{margin-bottom: 30px}
   #indexCasesContainer{margin-bottom: 30px}
+  #contactUsInfo ::v-deep{
+    .fa{display: inline-block;width: 40px;text-align: center;font-size: 26px}
+    p,a{padding-left: 40px}
+
+    .list{;margin-bottom: 20px;
+      .label{font-size: 28px}
+      .info{font-size: 28px}
+    }
+  }
 </style>

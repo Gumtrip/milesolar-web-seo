@@ -6,20 +6,7 @@
         <div slot="header" class="clearfix">
           <span class="contactInfoTitle">Contact Info</span>
         </div>
-        <ul id="listBox">
-          <li v-for="(item,key) in contactList" :key="key" class="list">
-            <a v-if="item.url" :href="item.url">
-              <span class="icon"><i class="fa" :class="item.icon"></i></span>
-              <span class="label" v-text="item.label+':'"></span>
-              <span class="info" v-text="item.value"></span>
-            </a>
-            <p v-else>
-              <span class="icon"><i class="fa" :class="item.icon"></i></span>
-              <span class="label" v-text="item.label+':'"></span>
-              <span class="info" v-text="item.value"></span>
-            </p>
-          </li>
-        </ul>
+        <contactInfo></contactInfo>
       </el-card>
     </div>
     <el-card id="inquiryBox">
@@ -38,34 +25,9 @@
             <div class="flexPic">
               <img :src="product.main_image" :alt="product.title">
             </div>
-
           </div>
-
         </section>
-        <el-form id="contact_form" ref="postForm" :model="postForm" :rules="rules">
-          <el-form-item placeholder="Please Input Your Name" class="required" label="Name:" prop="name">
-            <el-input v-model="postForm.name" class="input required" :attr="{required:true}">
-            </el-input>
-          </el-form-item>
-          <el-form-item label="Mobile:" placeholder="Please Input Your Mobile">
-            <el-input v-model="postForm.phone" class="input" type="tel"></el-input>
-          </el-form-item>
-          <el-form-item label="Email:" placeholder="Please Input Your Email" class="required" prop="email">
-            <el-input v-model="postForm.email" class="input required" :attr="{required:true}" type="email"></el-input>
-          </el-form-item>
-          <el-form-item label="Skype:" placeholder="Please Input Your Skype">
-            <el-input v-model="postForm.skype" class="input">
-            </el-input>
-          </el-form-item>
-          <el-form-item label="Message:" placeholder="Please Input Your Message" class="required" prop="msg">
-            <el-input v-model="postForm.msg" class="input required" :attr="{required:true}" type="textarea">
-            </el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button class="submitBtn" size="medium" type="primary" @click="submitForm">Submit
-            </el-button>
-          </el-form-item>
-        </el-form>
+        <contactForm :simple="false" :product="product"></contactForm>
       </div>
     </el-card>
 
@@ -73,47 +35,23 @@
 </template>
 
 <script>
-import { MessageBox ,Message } from 'element-ui'
 import Bread from '@/components/utils/BreadCrumb'
-import { product, storeMsg } from '~/plugins/http'
-import { echoErrorMsg  } from '@/plugins/utils'
+import { product } from '~/plugins/http'
 import { APP_URL } from '~/seo.config'
-
+import contactForm from './contactForm'
+import contactInfo from './contactInfo'
 export default {
   name: 'Index',
-  components: { Bread },
+  components: { Bread, contactForm, contactInfo },
 
   data() {
     return {
-      contactList: [
-        { label: 'Email', icon: 'fa-envelope', value: 'info@milesolar.com', url: 'mailto:info@milesolar.com' },
-        { label: 'Phone', icon: 'fa-mobile', value: '008613889943867', url: 'tel:008613889943867' },
-        { label: 'Skype', icon: 'fa-skype', value: '13812341234@qq.com' }
-      ],
-      postForm: {
-        product_id: null,
-        product_info: null,
-        name: '',
-        phone: '',
-        email: '',
-        skype: '',
-        msg: ''
-      },
-      product: [],
+
+      product_id:0,
+      product: {},
       breadList: [
         { title: 'Products', url: '/products' }
       ],
-      rules: {
-        name: [
-          { required: true, message: 'name is required', trigger: 'blur' }
-        ],
-        email: [
-          { type: 'email', required: true, message: 'email is required', trigger: 'change' }
-        ],
-        msg: [
-          { required: true, message: 'msg is required', trigger: 'change' }
-        ]
-      }
     }
   },
   computed: {},
@@ -124,42 +62,15 @@ export default {
   },
   created() {
     const query = this.$route.query
-    this.postForm.product_id = query.product_id
-    if (this.postForm.product_id) {
-      this.getProduct(this.postForm.product_id)
+    if(query.product_id){
+      this.product_id = query.product_id
+      this.getProduct(this.product_id)
     }
   },
   methods: {
-    async submitForm() {
-      this.$refs.postForm.validate(async valid => {
-        if (valid) {
-          try {
-            const res = await storeMsg(this.postForm)
-            if (res.status === 201) {
-              MessageBox({
-                'title': 'Message',
-                'message': 'Thanks For Your Message!',
-                'confirmButtonText': 'OK'
-              }).then(() => {
-                // 清空表单的话会触发表单验证，暂时强行刷新页面
-                location.reload()
-              })
-            }
-          } catch (e) {
-            console.log(e)
-            const Msg = echoErrorMsg(e)
-            Message.error(`Error: ${Msg}`)
-          }
-        } else {
-          console.log('error submit!!')
-        }
-      })
-    },
     getProduct(id) {
       product(id).then((response) => {
         this.product = response.data
-        this.postForm.product_id = id
-        this.postForm.product_info = response.data
       })
     }
 
@@ -195,14 +106,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~/assets/css/_variables";
+  @import "@/assets/css/_variables";
   #MsgBox{padding-bottom: 30px}
   #inquiryBox{padding-bottom: 30px;
     .boxTitle{margin-bottom: 10px;font-size: 28px}
     .boxSubTitle{margin-bottom: 40px;font-size: 24px;color: #666;}
   }
   #productBox{display: flex;justify-content: space-between;
-    #contact_form ::v-deep{flex:0 0 80%;margin: 0 auto;
+    #contact_form ::v-deep{flex:0 0 90%;margin: 0 auto;
       .required .el-form-item__label:after{content: '*';color: $red}
     }
     &.half{
@@ -214,10 +125,10 @@ export default {
     .desc{margin-bottom: 20px;font-size: 16px;color: #666;}
     .flexPic{;border: 1px solid $light_grey;border-radius: 5px;box-sizing: border-box;overflow: hidden}
   }
-  #contactInfo{margin-bottom: 50px;
+  #contactInfo ::v-deep{margin-bottom: 50px;
     .contactInfoTitle{font-size: 28px}
     .fa{display: inline-block;width: 50px;text-align: center;font-size: 30px}
-
+    p,a{padding-left: 50px}
     #listBox{display: flex;flex-wrap: wrap;
       .list{flex: 0 0 50%;margin-bottom: 20px;
         .label{font-size: 28px}
