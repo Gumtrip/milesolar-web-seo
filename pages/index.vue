@@ -40,7 +40,7 @@
           </el-col>
         </el-row>
       </section>
-
+<!--關於我們-->
       <section v-if="aboutsUs" id="aboutUs">
         <div class="rightBox">
           <div v-if="aboutsUs[0]" id="imgBox">
@@ -60,7 +60,8 @@
           </el-row>
         </div>
       </section>
-
+      <!--關於我們-->
+<!--      首页案例-->
       <section id="indexCasesContainer">
         <Cases></Cases>
       </section>
@@ -73,6 +74,7 @@
             </el-col>
           </el-row>
         </el-card>
+        <!--      首页案例-->
 
 
       </section>

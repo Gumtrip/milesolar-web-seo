@@ -34,15 +34,20 @@
           </li>
         </ul>
       </li>
+      <li id="contactUs">
+        <contactInfo></contactInfo>
+      </li>
     </ul>
   </footer>
 </template>
 
 <script>
 import { productCategories, articles } from '~/plugins/http'
+import contactInfo from '@/pages/contact/contactInfo'
+
 export default {
   name: 'Footer',
-  components: {},
+  components: {contactInfo},
   data() {
     return {
       product_categories: [],
@@ -82,8 +87,8 @@ export default {
   #footer{background: #343434;padding-top: 10px;overflow: hidden;
     .wrapper{display: flex;padding-top: 20px}
     .logo img{max-width: 150px}
-    .navList{flex:0 0  20%;;padding-bottom:10px;margin-bottom: 10px;box-sizing: border-box;}
-    .product{flex: 0 0 35%}
+    .navList{flex:0 0  15%;;padding-bottom:10px;margin-bottom: 10px;box-sizing: border-box;}
+    .product{flex: 0 0 30%}
 
     h3{position: relative;padding-bottom: 10px;color: #fff;font-size: 18px;text-transform: uppercase;margin-bottom: 15px;}
     h3:after{border-bottom: 1px solid $main_green;width: 60px;
@@ -102,5 +107,13 @@ export default {
         color: #a9a9a9;
       }
     }
+  }
+  #contactUs ::v-deep{
+    span{color: #fff;font-size: 16px;}
+    a,p{margin-bottom: 10px}
+    #listBox a,#listBox p{padding-left: 30px;}
+    i{font-size: 18px}
+    .fa.fa-mobile{font-size: 22px}
+    #listBox .icon{top: 0}
   }
 </style>
