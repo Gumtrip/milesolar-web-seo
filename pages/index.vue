@@ -26,19 +26,8 @@
         </el-row>
       </section>
 
-      <section v-if="indexProducts" id="featureProducts" type="flex">
-        <h3 class="text_center title">FEATURED PRODUCTS</h3>
-        <el-row id="featureContainer" :gutter="20">
-          <el-col v-for="(product,key) in indexProducts" :key="key" :span="6">
-            <div class="border-round itemBox">
-              <nuxt-link :to="{name:'products-id-slug',params:{id:product.id,slug:product.slug}}">
-                <div class="flexPic">
-                  <img :src="product.main_image" alt="">
-                </div>
-              </nuxt-link>
-            </div>
-          </el-col>
-        </el-row>
+      <section  id="featureProductsContainer">
+        <Products></Products>
       </section>
 <!--關於我們-->
       <section v-if="aboutsUs" id="aboutUs">
@@ -75,8 +64,6 @@
           </el-row>
         </el-card>
         <!--      首页案例-->
-
-
       </section>
     </div>
   </div>
@@ -87,11 +74,12 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
 import 'swiper/css/swiper.css'
 import Cases from '@/components/index/cases'
+import Products from '@/components/index/products'
 import contactForm from './contact/contactForm'
 import contactInfo from './contact/contactInfo'
 
 export default {
-  components: { Swiper, SwiperSlide, Cases, contactForm, contactInfo
+  components: { Swiper, SwiperSlide, Cases, contactForm, contactInfo, Products
   },
   async asyncData() {
     // 产品分类
@@ -105,21 +93,15 @@ export default {
       take: 3,
       sort: 'id'
     })
-    // feature products
-    const res3 = await products({
-      filter: { is_index: 1 },
-      take: 8
-    })
 
-    return { product_categories: res.data,
+    return {
+      product_categories: res.data,
       aboutsUs: res2.data, // 关于我们
-      indexProducts: res3.data// feature products
     }
   },
   data() {
     return {
       product_categories: [],
-      indexProducts: [],
       aboutsUs: [],
       bannerHeight: '500',
       banners: [
@@ -128,7 +110,6 @@ export default {
     }
   },
   async created() {
-
   },
   methods: {
     getCategories() {
@@ -200,11 +181,8 @@ export default {
     .cateBrief{font-size: 16px;height: 74px;overflow: hidden}
   }
 
-  #featureProducts{
-    .title{font-size: 32px;margin-bottom: 10px}
-    .itemBox{padding: 1rem;;height: 300px;overflow: hidden;margin-bottom: 20px}
-    .flexPic{height: 300px}
-  }
+  #featureProductsContainer{margin-bottom: 20px}
+
   #aboutUs{box-sizing: border-box;display: flex;justify-content: space-between;margin-bottom: 20px;
     .rightBox{flex: 0 0 42%}
     .leftBox{flex: 0 0 54%}
