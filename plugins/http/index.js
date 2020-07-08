@@ -93,11 +93,11 @@ export const products = (params) => {
     params: params
   })
 }
-export const product = (id, data) => {
+export const product = (id, params) => {
   return instance({
     url: 'products/' + id,
     method: 'get',
-    data: data
+    params: params
   })
 }
 
