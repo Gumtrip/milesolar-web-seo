@@ -159,6 +159,13 @@ export const sample = (id, params) => {
     params: params
   })
 }
+export const settings = (params) => {
+  return instance({
+    url: 'settings/',
+    method: 'get',
+    params: params
+  })
+}
 
 // 默认全部导出
 // 根据需要进行
@@ -172,6 +179,7 @@ export default {
   articles,
   samples,
   sample,
-  storeMsg
+  storeMsg,
+  settings
 }
 

@@ -28,7 +28,7 @@
 <script>
 import Bread from '@/components/utils/BreadCrumb'
 import Cate from './components/Cate'
-import { products, productCategory } from '~/plugins/http'
+import { products, productCategory } from '@/plugins/http'
 import { APP_URL } from '~/seo.config'
 
 export default {

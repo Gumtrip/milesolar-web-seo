@@ -3,8 +3,8 @@
     <section id="banner">
       <swiper ref="mySwiper">
         <swiper-slide v-for="(banner,key) in banners" :key="key">
-          <router-link :to="banner.url" class="bannerImg">
-            <img src="../static/banner.png" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
+          <router-link v-if="banner.value" to="/" class="bannerImg">
+            <img  :src="baseUrl + banner.value" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
           </router-link>
         </swiper-slide>
       </swiper>
@@ -69,7 +69,7 @@
   </div>
 </template>
 <script>
-import { productCategories, articles, products } from '@/plugins/http'
+import { productCategories, articles, settings } from '@/plugins/http'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { APP_URL, TITLE } from '~/seo.config'
 import 'swiper/css/swiper.css'
@@ -93,10 +93,13 @@ export default {
       take: 3,
       sort: 'id'
     })
-
+    const res3 = await settings({
+      filter: { category_id:1},
+    })
     return {
       product_categories: res.data,
       aboutsUs: res2.data, // 关于我们
+      banners: res3.data, // banners
     }
   },
   data() {
@@ -104,9 +107,8 @@ export default {
       product_categories: [],
       aboutsUs: [],
       bannerHeight: '500',
-      banners: [
-        { image: '../static/banner-1.jpg', url: '/' }
-      ]
+      banners: [],
+      baseUrl:process.env.baseUrl
     }
   },
   async created() {
