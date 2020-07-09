@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section id="banner">
-      <swiper ref="mySwiper">
+      <swiper ref="mySwiper" :options="swiperOption">
         <swiper-slide v-for="(banner,key) in banners" :key="key">
           <router-link v-if="banner.value" to="/" class="bannerImg">
             <img  :src="baseUrl + banner.value" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
@@ -108,7 +108,16 @@ export default {
       aboutsUs: [],
       bannerHeight: '500',
       banners: [],
-      baseUrl:process.env.baseUrl
+      baseUrl:process.env.baseUrl,
+      swiperOption:{
+        //自动轮播
+        autoplay: {
+          delay: 2000,
+          //当用户滑动图片后继续自动轮播
+          disableOnInteraction: false,
+        },
+        loop:true
+      }
     }
   },
   async created() {
