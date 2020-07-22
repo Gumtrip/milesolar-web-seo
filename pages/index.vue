@@ -4,7 +4,7 @@
       <swiper ref="mySwiper" :options="swiperOption">
         <swiper-slide v-for="(banner,key) in banners" :key="key">
           <router-link v-if="banner.value" to="/" class="bannerImg">
-            <img  :src="baseUrl + banner.value" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
+            <img :src="baseUrl + banner.value" alt="Power inverter, MPPT controller, off-grid solar system, MILESOLAR">
           </router-link>
         </swiper-slide>
       </swiper>
@@ -26,10 +26,10 @@
         </el-row>
       </section>
 
-      <section  id="featureProductsContainer">
+      <section id="featureProductsContainer">
         <Products></Products>
       </section>
-<!--關於我們-->
+      <!--關於我們-->
       <section v-if="aboutsUs" id="aboutUs">
         <div class="rightBox">
           <div v-if="aboutsUs[0]" id="imgBox">
@@ -50,7 +50,7 @@
         </div>
       </section>
       <!--關於我們-->
-<!--      首页案例-->
+      <!--      首页案例-->
       <section id="indexCasesContainer">
         <Cases></Cases>
       </section>
@@ -94,12 +94,12 @@ export default {
       sort: 'id'
     })
     const res3 = await settings({
-      filter: { category_id:1},
+      filter: { category_id: 1 }
     })
     return {
       product_categories: res.data,
       aboutsUs: res2.data, // 关于我们
-      banners: res3.data, // banners
+      banners: res3.data // banners
     }
   },
   data() {
@@ -108,15 +108,15 @@ export default {
       aboutsUs: [],
       bannerHeight: '500',
       banners: [],
-      baseUrl:process.env.baseUrl,
-      swiperOption:{
-        //自动轮播
+      baseUrl: process.env.baseUrl,
+      swiperOption: {
+        // 自动轮播
         autoplay: {
           delay: 2000,
-          //当用户滑动图片后继续自动轮播
-          disableOnInteraction: false,
+          // 当用户滑动图片后继续自动轮播
+          disableOnInteraction: false
         },
-        loop:true
+        loop: true
       }
     }
   },
@@ -178,7 +178,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   @import "@/assets/css/_variables.scss";
-  #banner {
+  #banner {max-height: 600px;overflow: hidden;max-width: 1920px;
     a{display: block;text-align: center;}
     .bannerImg{width: 100%}
     .bannerImg img{max-width: 100%}
